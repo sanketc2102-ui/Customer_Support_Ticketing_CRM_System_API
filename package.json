@@ -1,0 +1,30 @@
+{
+  "name": "customer_support_ticketing_crm_system_api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sanketc2102-ui/Customer_Support_Ticketing_CRM_System_API.git"
+  },
+  "author": "sanket chavan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sanketc2102-ui/Customer_Support_Ticketing_CRM_System_API/issues"
+  },
+  "homepage": "https://github.com/sanketc2102-ui/Customer_Support_Ticketing_CRM_System_API#readme",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "nodemon": "^3.1.14"
+  },
+  "devDependencies": {
+    "opencode-ai": "^1.18.4"
+  }
+}
