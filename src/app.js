@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
-import { errorHander } from "./middlewares/error.middleware.js";
+import { errorHandler } from "./middlewares/error.middleware.js";
 import ticketsRouter from "./routes/tickets.routes.js";
 
 const confing = dotenv.config({
@@ -26,6 +26,6 @@ app.use(
 app.use("/api/tickets", ticketsRouter);
 
 // Gloable Error handling
-app.use(errorHander);
+app.use(errorHandler);
 
 export default app;

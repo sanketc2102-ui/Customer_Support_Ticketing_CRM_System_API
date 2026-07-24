@@ -1,10 +1,12 @@
-function errorHander(err, req, res, next) {
-  console.log(err);
+const errorHandler = (err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
 
-  return res.status(err.statusCode || 500).json({
-    message: err.message,
-    success: err.success || false,
+  res.status(statusCode).json({
+    success: false,
+    statusCode,
+    message: err.message || "Internal Server Error",
+    errors: err.errors || [],
   });
-}
+};
 
-export { errorHander };
+export { errorHandler };
