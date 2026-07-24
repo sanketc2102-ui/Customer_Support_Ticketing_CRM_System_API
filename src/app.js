@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import { errorHander } from "./middlewares/error.middleware.js";
+import ticketsRouter from "./routes/tickets.routes.js";
 
 const confing = dotenv.config({
   path: "./.env",
@@ -20,6 +21,9 @@ app.use(
     allowedHeaders: ["Content-Type"],
   }),
 );
+
+// Routes
+app.use("/api/tickets", ticketsRouter);
 
 // Gloable Error handling
 app.use(errorHander);
