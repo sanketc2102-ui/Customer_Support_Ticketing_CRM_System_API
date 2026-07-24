@@ -7,6 +7,7 @@ import {
 } from "../controllers/tickets.controllers.js";
 import {
   createTicketValidator,
+  getTicketsValidator,
   ticketIdParamValidator,
   updateTicketValidator,
 } from "../validators/index.js";
@@ -16,8 +17,8 @@ const router = Router();
 
 router
   .route("/")
-  .get(createTicketValidator, validate, getTickets)
-  .post(createTicket);
+  .get(getTicketsValidator, validate, getTickets)
+  .post(createTicketValidator, validate, createTicket);
 
 router
   .route("/:ticket_id")

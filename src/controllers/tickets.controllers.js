@@ -36,6 +36,28 @@ const createTicket = async (req, res, next) => {
 
 const getTickets = async (req, res, next) => {
   try {
+    const { status, search } = req.query;
+    const filter = {};
+
+    if (status) filter.status = status;
+
+    if (search) {
+      const regex = new RegExp(search, "i");
+      filter.$or = [
+        { customer_name: regex },
+        { customer_email: regex },
+        { ticket_id: regex },
+        { description: regex },
+      ];
+    }
+
+    const tickets = await Tickets.find(filter)
+      .select("ticket_id customer_name subject status created_at -_id")
+      .sort({ created_at: -1 });
+
+    return res
+      .status(200)
+      .json(new ApiResponse(200, tickets, "Tickets fetched successfully"));
   } catch (err) {
     next(err);
   }

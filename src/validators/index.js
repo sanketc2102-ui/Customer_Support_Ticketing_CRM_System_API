@@ -1,4 +1,4 @@
-import { body, param } from "express-validator";
+import { body, param, query } from "express-validator";
 
 const createTicketValidator = [
   body("customer_name")
@@ -13,6 +13,14 @@ const createTicketValidator = [
     .withMessage("customer_email must be a valid email"),
   body("subject").trim().notEmpty().withMessage("subject is required"),
   body("description").trim().notEmpty().withMessage("description is required"),
+];
+
+const getTicketsValidator = [
+  query("status")
+    .optional()
+    .isIn(["Open", "In Progress", "Closed"])
+    .withMessage("status must be Open, In Progress or Closed"),
+  query("search").optional().trim().isString(),
 ];
 
 const ticketIdParamValidator = [
@@ -35,4 +43,9 @@ const updateTicketValidator = [
     .withMessage("notes must be a string"),
 ];
 
-export { createTicketValidator, ticketIdParamValidator, updateTicketValidator };
+export {
+  createTicketValidator,
+  ticketIdParamValidator,
+  updateTicketValidator,
+  getTicketsValidator,
+};
