@@ -22,4 +22,17 @@ const ticketIdParamValidator = [
     .withMessage("ticket_id param is required"),
 ];
 
-export { createTicketValidator, ticketIdParamValidator };
+const updateTicketValidator = [
+  ...ticketIdParamValidator,
+  body("status")
+    .optional()
+    .isIn(["Open", "In Progress", "Closed"])
+    .withMessage("status must be Open, In Progress or Closed"),
+  body("notes")
+    .optional()
+    .trim()
+    .isString()
+    .withMessage("notes must be a string"),
+];
+
+export { createTicketValidator, ticketIdParamValidator, updateTicketValidator };

@@ -8,6 +8,7 @@ import {
 import {
   createTicketValidator,
   ticketIdParamValidator,
+  updateTicketValidator,
 } from "../validators/index.js";
 import validate from "../middlewares/validate.middleware.js";
 
@@ -21,6 +22,6 @@ router
 router
   .route("/:ticket_id")
   .get(ticketIdParamValidator, validate, getTicketById)
-  .put(updateTicketById);
+  .put(updateTicketValidator, validate, updateTicketById);
 
 export default router;
