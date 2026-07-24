@@ -1,4 +1,5 @@
 import Tickets from "../model/ticketSchema.js";
+import { ApiError } from "../utils/apiError.js";
 import { ApiResponse } from "../utils/apiResponse.js";
 import { Types } from "mongoose";
 
@@ -41,6 +42,19 @@ const getTickets = async (req, res, next) => {
 
 const getTicketById = async (req, res, next) => {
   try {
+    const { ticket_id } = req.params;
+
+    const ticket = await Tickets.findOne({ ticket_id }).select(
+      "ticket_id customer_name customer_email subject description status notes -_id",
+    );
+
+    if (!ticket) {
+      throw new ApiError(404, `Ticket ${ticket_id} not found`);
+    }
+
+    return res
+      .status(200)
+      .json(new ApiResponse(200, ticket, "Ticket fetched successfully"));
   } catch (err) {
     next(err);
   }
