@@ -13,10 +13,15 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ limit: "16kb", extended: true }));
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  process.env.CORS_ORIGIN,
+].filter(Boolean);
+
 // CORS configuration
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: allowedOrigins,
     methods: ["POST", "PUT", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type"],
   }),
