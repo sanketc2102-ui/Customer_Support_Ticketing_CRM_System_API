@@ -57,7 +57,7 @@ const getTickets = async (req, res, next) => {
 
     return res
       .status(200)
-      .json(new ApiResponse(200, tickets, "Tickets fetched successfully"));
+      .json(new ApiResponse(200, "Tickets fetched successfully", tickets));
   } catch (err) {
     next(err);
   }
@@ -79,15 +79,12 @@ const getTicketById = async (req, res, next) => {
       .select("note_text created_at -_id")
       .sort({ created_at: 1 });
 
-    return res
-      .status(200)
-      .json(
-        new ApiResponse(
-          200,
-          { ...ticket.toObject(), notes },
-          "Ticket fetched successfully",
-        ),
-      );
+    return res.status(200).json(
+      new ApiResponse(200, "Ticket fetched successfully", {
+        ...ticket.toObject(),
+        notes,
+      }),
+    );
   } catch (err) {
     next(err);
   }
@@ -112,15 +109,12 @@ const updateTicketById = async (req, res, next) => {
       await Notes.create({ ticket_id: ticket._id, note_text: notes });
     }
 
-    return res
-      .status(200)
-      .json(
-        new ApiResponse(
-          200,
-          { success: true, updated_at: ticket.updated_at },
-          "Ticket updated successfully",
-        ),
-      );
+    return res.status(200).json(
+      new ApiResponse(200, "Ticket updated successfully", {
+        success: true,
+        updated_at: ticket.updated_at,
+      }),
+    );
   } catch (err) {
     next(err);
   }
